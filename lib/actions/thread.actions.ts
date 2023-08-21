@@ -8,19 +8,19 @@ import { connectToDB } from "../mongoose";
 interface Params{
     text:string,
     author:string,
-    commuityId:string|null,
+    communityId:string|null,
     path:string,
 }
 
 export async function createThread({text,author,
-    commuityId,path}:Params){
+    communityId,path}:Params){
    try{
     connectToDB();
 
     const createThread = await Thread.create({
         text,
         author,
-        community: null,
+        community: communityId,
     });
 
     await User.findByIdAndUpdate(author,{
